@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+
+# creating a deployment, it will make sure 3 pods will be up all time
+# even if we manually delete 1 pod, it will start another pod, if we add one extra it will delete on of the containers
+# deployment is higher level of manifest, manifest deploys pod, deployment manages it properly
+# deployment actually created replicaset
+# deployment is better than replicaset because it manages rollbacks, rolling updates
